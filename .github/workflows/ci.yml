@@ -34,6 +34,10 @@ jobs:
       run: |
         python -m pytest -q
 
+    - name: Run acceptance report checks
+      run: |
+        python generate_acceptance_report.py
+
     - name: Run demo module
       run: |
         python -m fluxara_core.demo

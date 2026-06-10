@@ -17,6 +17,7 @@ Fluxara is an advanced cyber-physical control plane designed to transform energy
 - **Multi-Rate Plant Simulation:** Decouples 1-second physical/thermal updates from 5-minute grid bidding intervals.
 - **Silicon Fatigue ledger:** Tracks transient HBM junction temperatures and cycles, penalizing rapid setpoint changes using a Coffin-Manson empirical damage proxy.
 - **Workflow Visibility Integration:** Native support for the `meta-harness` markdown-first tracking ledger.
+- **Thermodynamic Reversible Computing Research (v0.R):** An isolated, simulator-only research track validating Landauer limits and ancilla caching falsification surfaces. This research is strictly theoretical, does not claim reversible execution on existing hardware, and remains 100% decoupled from the production solver, bidding, and routing controllers.
 
 ---
 
