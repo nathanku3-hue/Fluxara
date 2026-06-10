@@ -91,3 +91,4 @@ The placement engine utilizes a two-tier execution plan:
 ## 5. Known Limitations
 1. **Static Sensitivities**: While sensitivities are customizable via JSON load files, the placement engine currently treats operator sensitivities as static variables. Runtime dynamic precision or dynamic scale scaling could adjust sensitivity levels on the fly.
 2. **Network Topology Simplicity**: The inter-device communication cost is modeled as device-level communication delay coefficients rather than a full non-uniform memory access (NUMA) / NVLink network topology matrix.
+3. **Simulator-Level Health Modeling**: The physical telemetry model, damage indices, and SDC probabilities are strictly **simulator-level surrogates**. They are meant for control-loop validation and compiler scheduling evaluations. They should not be interpreted as absolute physical predictions unless calibrated telemetry and empirical SDC profiles from specific GPU hardware models become available.
