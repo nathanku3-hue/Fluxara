@@ -30,6 +30,9 @@ dependencies = [
 [project.urls]
 Homepage = "https://github.com/fluxara/fluxara"
 
+[project.scripts]
+fluxara-demo = "fluxara_core.demo:main"
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["fluxara_core*"]

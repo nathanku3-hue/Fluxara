@@ -53,10 +53,19 @@ pip install numpy pandas scipy cvxpy osqp clarabel
 *(Note: `cvxpy` is recommended for the convex optimizer. If it is not installed, the solver will automatically fall back to `SciPy L-BFGS-B` to keep the simulation runnable.)*
 
 ### 2. Run the Closed-Loop Demo
-Execute the baseline 24-step (4-hour) simulation:
-
+Install the package in editable mode:
 ```bash
-python fluxara_core/demo.py
+pip install -e .
+```
+
+Then run the console script:
+```bash
+fluxara-demo
+```
+
+Alternatively, you can run the demo directly as a module:
+```bash
+python -m fluxara_core.demo
 ```
 
 The script runs the MPC loop and outputs a step-by-step telemetry status:
