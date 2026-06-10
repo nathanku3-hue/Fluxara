@@ -39,6 +39,13 @@ class FluxaraSolverConfig:
     base_interruptible_frac: float = 0.10
     checkpoint_interruptible_gain: float = 0.75
 
+    # Stochastic / R8-1 settings
+    rng_seed: int = 42
+    risk_surface_noise: float = 0.03
+    exploitability_weight: float = 100.0
+    delivery_confidence: float = 0.999
+    shortfall_cvar_alpha: float = 0.99
+
     # CVXPY settings
     solver: str = "OSQP"
     verbose: bool = False
@@ -90,12 +97,15 @@ class FluxaraSolver:
         fatigue_proxy = self.cfg.fatigue_proxy_penalty_usd * cp.sum_squares(du)
         checkpoint_cost = self.cfg.checkpoint_linear_usd * cp.sum(c) + self.cfg.checkpoint_quadratic_usd * cp.sum_squares(c)
 
+        import scipy.stats  # type: ignore
+        z_score = float(scipy.stats.norm.ppf(self.cfg.delivery_confidence))
+
         constraints = [
             u >= self.cfg.min_power_frac,
             u <= 1.0,
             c >= 0.0,
             c <= 1.0,
-            shed_frac <= interruptible_now + self.cfg.checkpoint_interruptible_gain * c,
+            shed_frac + z_score * self.cfg.risk_surface_noise <= interruptible_now + self.cfg.checkpoint_interruptible_gain * c,
         ]
 
         objective = cp.Minimize(energy_cost + carbon_cost + sla_cost + ramp_cost + fatigue_proxy + checkpoint_cost)
@@ -133,8 +143,13 @@ class FluxaraSolver:
             ramp = self.cfg.ramp_penalty_usd * np.sum(du**2)
             fatigue = self.cfg.fatigue_proxy_penalty_usd * np.sum(du**2)
             ckpt = self.cfg.checkpoint_linear_usd * np.sum(c) + self.cfg.checkpoint_quadratic_usd * np.sum(c**2)
-            # Soft penalty for violating checkpoint-liquidity relaxation.
-            violation = np.maximum(0.0, shed - (interruptible_now + self.cfg.checkpoint_interruptible_gain * c))
+            # Soft penalty for violating checkpoint-liquidity relaxation with chance constraint buffer.
+            import scipy.stats
+            z_score = float(scipy.stats.norm.ppf(self.cfg.delivery_confidence))
+            violation = np.maximum(
+                0.0,
+                shed + z_score * self.cfg.risk_surface_noise - (interruptible_now + self.cfg.checkpoint_interruptible_gain * c)
+            )
             liquidity_penalty = 1.0e5 * np.sum(violation**2)
             return float(energy + carbon_cost + sla + ramp + fatigue + ckpt + liquidity_penalty)
 

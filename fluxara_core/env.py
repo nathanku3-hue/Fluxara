@@ -139,7 +139,7 @@ class FluxaraEnv:
             out = pd.concat([out, pad], ignore_index=True)
         return out.reset_index(drop=True)
 
-    def step_market(self, action: Dict[str, float]) -> Dict[str, Any]:
+    def step_market(self, action: Dict[str, Any]) -> Dict[str, Any]:
         """Apply one market-window action and simulate second-level plant state."""
         if self.market_idx >= self.cfg.n_market_steps:
             raise RuntimeError("Simulation already finished")
@@ -152,8 +152,26 @@ class FluxaraEnv:
         self.power_frac = power_frac
         self.last_action = {"power_frac": power_frac, "checkpoint_effort": checkpoint_effort}
 
+        # Gather any extra market-level log variables
+        extra_keys = [
+            "deterministic_power_frac",
+            "randomized_power_frac",
+            "bid_mw",
+            "bid_price_usd_per_mwh",
+            "award_mw",
+            "delivered_mw",
+            "delivery_shortfall_mw",
+            "market_profit_usd",
+            "exploitability_score",
+            "adversary_prediction_error",
+            "backend",
+            "rng_seed",
+            "timestamp"
+        ]
+        extra_log = {k: action[k] for k in extra_keys if k in action}
+
         for _ in range(self.ticks_per_market):
-            self._step_plant_one_tick(checkpoint_effort)
+            self._step_plant_one_tick(checkpoint_effort, extra_log)
 
         self.market_idx += 1
         return self.observe()
@@ -161,7 +179,7 @@ class FluxaraEnv:
     def done(self) -> bool:
         return self.market_idx >= self.cfg.n_market_steps
 
-    def _step_plant_one_tick(self, checkpoint_effort: float) -> None:
+    def _step_plant_one_tick(self, checkpoint_effort: float, extra_log: Dict[str, Any] | None = None) -> None:
         dt = self.cfg.dt_s
         prev_tj = self.tj_c
         gpu_power_w = self.power_frac * self.cfg.representative_gpu_tdp_w
@@ -182,17 +200,19 @@ class FluxaraEnv:
 
         self.t_s += dt
 
-        self.history.append(
-            {
-                "t_s": self.t_s,
-                "market_idx": self.market_idx,
-                "power_frac": self.power_frac,
-                "tj_c": self.tj_c,
-                "damage_fraction": self.damage_fraction,
-                "checkpoint_age_s": self.checkpoint_age_s,
-                "lmp_usd_per_mwh": self.lmp_df.iloc[self.market_idx]["lmp_usd_per_mwh"],
-            }
-        )
+        row_idx = min(self.market_idx, len(self.lmp_df) - 1)
+        log_entry = {
+            "t_s": self.t_s,
+            "market_idx": self.market_idx,
+            "power_frac": self.power_frac,
+            "tj_c": self.tj_c,
+            "damage_fraction": self.damage_fraction,
+            "checkpoint_age_s": self.checkpoint_age_s,
+            "lmp_usd_per_mwh": float(self.lmp_df.iloc[row_idx]["lmp_usd_per_mwh"]),
+        }
+        if extra_log:
+            log_entry.update(extra_log)
+        self.history.append(log_entry)
 
     def _apply_power_cap_cycle_damage(self, new_power_frac: float) -> None:
         """Damage proxy from changing the power cap setpoint.
