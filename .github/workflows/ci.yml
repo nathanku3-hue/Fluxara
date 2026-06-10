@@ -2,9 +2,10 @@ name: Fluxara CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ main ]
+    branches: [ master, main ]
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -31,7 +32,7 @@ jobs:
 
     - name: Run unit tests
       run: |
-        python -m pytest
+        python -m pytest -q
 
     - name: Run demo module
       run: |

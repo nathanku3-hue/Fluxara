@@ -1,0 +1,48 @@
+{
+  "report_metadata": {
+    "project": "Fluxara",
+    "phase": "R8-2.1 Validation Hardening",
+    "status": "APPROVED"
+  },
+  "r8_1_market_security": {
+    "deterministic_baseline": {
+      "exploitability": 0.5833333333333333,
+      "expected_profit_usd": 38.295624742030896,
+      "delivery_success_rate": 1.0
+    },
+    "randomized_policy": {
+      "exploitability": 0.41666666666666674,
+      "expected_profit_usd": 48.531392686847525,
+      "delivery_success_rate": 1.0
+    },
+    "comparison": {
+      "exploitability_ratio": 0.7142857142857145,
+      "profit_ratio": 1.2672829602276336,
+      "exploitability_gate_passed": true,
+      "profit_gate_passed": true
+    },
+    "delivery_safety_monte_carlo": {
+      "trials": 10000,
+      "delivery_success_rate": 1.0,
+      "shortfall_cvar_99_mw": 0.0,
+      "delivery_gate_passed": true,
+      "cvar_gate_passed": true
+    }
+  },
+  "r8_2_aging_aware_routing": {
+    "metrics": {
+      "cost_only_sdc_weighted_risk": 15.988019089692449,
+      "aging_aware_sdc_weighted_risk": 1.8658867073254268,
+      "risk_reduction_pct": 88.32946910522284,
+      "latency_overhead_pct": 0.0,
+      "high_sensitivity_on_degraded_cost_only": 2,
+      "high_sensitivity_on_degraded_aging_aware": 0,
+      "degraded_placements_reduction_pct": 100.0
+    },
+    "comparison": {
+      "risk_gate_passed": true,
+      "latency_gate_passed": true,
+      "degraded_placements_gate_passed": true
+    }
+  }
+}

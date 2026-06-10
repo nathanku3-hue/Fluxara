@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fluxara"
-version = "0.1.0"
+version = "0.3.0-alpha"
 description = "Fluxara: Grid-Interactive AI Control Plane turning data centers into cyber-physical power plants"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -28,7 +28,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/fluxara/fluxara"
+Homepage = "https://github.com/nathanku3-hue/Fluxara"
 
 [project.scripts]
 fluxara-demo = "fluxara_core.demo:main"

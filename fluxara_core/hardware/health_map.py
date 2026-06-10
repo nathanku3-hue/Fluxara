@@ -13,6 +13,21 @@ from dataclasses import dataclass, field
 
 @dataclass
 class GPUTelemetry:
+    """GPU physical health telemetry metrics with normalized expected ranges.
+
+    Fields
+    ------
+    damage_index : float
+        Cumulative physical fatigue/damage ratio. Range: [0.0, 1.0] (0.0 = brand new, 1.0 = theoretical end of life).
+    ecc_slope : float
+        Daily trend slope of corrected single-bit ECC error rate. Range: [0.0, 10.0] (errors/day).
+    leakage_drift : float
+        Static leakage current normalized drift ratio. Range: [0.0, 5.0] (1.0 = baseline, >1.0 = elevated leakage).
+    thermal_cycle_count : float
+        Cumulative thermal cycle count. Range: [0.0, 10000.0].
+    xid_error_rate : float
+        Driver-level XID error frequency. Range: [0.0, 20.0] (critical hardware errors per hour).
+    """
     damage_index: float = 0.0
     ecc_slope: float = 0.0
     leakage_drift: float = 0.0

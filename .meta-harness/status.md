@@ -7,10 +7,10 @@ Phase:
 work
 
 Current truth:
-all 14 unit tests passed, cvxpy-OSQP backend verified, console script tested
+all 18 unit tests passed, acceptance report generated, and CI configured
 
 Active streams:
-- coding: all 14 unit tests passed, cvxpy-OSQP backend verified, console script tested
+- coding: all 18 unit tests passed, acceptance report generated, and CI configured
 - research: aligned brand identity, control clock boundaries, and mathematical formulations
 - writing: idle
 - review: idle
@@ -31,4 +31,4 @@ Stop criteria:
 Fresh human and Codex worker can resume from local harness state.
 
 Updated:
-2026-06-10T11:57:06.962Z
+2026-06-10T15:10:15.549Z

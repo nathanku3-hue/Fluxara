@@ -2,6 +2,10 @@
 
 > **Tagline:** *Turning AI data centers into controllable cyber-physical power plants.*
 
+[![Fluxara CI](https://github.com/nathanku3-hue/Fluxara/actions/workflows/ci.yml/badge.svg)](https://github.com/nathanku3-hue/Fluxara/actions/workflows/ci.yml)
+[![R8 Release Acceptance](https://img.shields.io/badge/R8_Release-APPROVED-green.svg)](artifacts/r8_acceptance_report.json)
+[![Version](https://img.shields.io/badge/Version-v0.3--alpha-blue.svg)](#)
+
 Fluxara is an advanced cyber-physical control plane designed to transform energy-intensive AI data centers into flexible, contractable grid assets. By co-optimizing power system signals, liquid cooling telemetry, silicon fatigue limitations, and distributed machine learning workloads in real time, Fluxara maximizes net risk-adjusted profit for hyper-scale infrastructure.
 
 ---
@@ -70,8 +74,9 @@ python -m fluxara_core.demo
 
 The script runs the MPC loop and outputs a step-by-step telemetry status:
 ```text
-k=001 LMP=$  35.24/MWh u=1.000 ckpt=0.000 Tj=65.00C D=0.000e+00 backend=scipy-LBFGSB
-k=002 LMP=$  32.88/MWh u=1.000 ckpt=0.000 Tj=70.45C D=0.000e+00 backend=scipy-LBFGSB
+Starting integrated Fluxara simulation...
+k=001 LMP=$  62.70/MWh u_det=0.986 u_rand=0.995 bid_mw=0.05 award_mw=0.05 shortfall_mw=0.00 profit=$   0.26 exploitability=1.000
+k=002 LMP=$  54.31/MWh u_det=0.985 u_rand=0.927 bid_mw=0.73 award_mw=0.73 shortfall_mw=0.00 profit=$   3.32 exploitability=0.000
 ...
 wrote fluxara_history.csv
 ```
