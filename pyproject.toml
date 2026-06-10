@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fluxara"
+version = "0.1.0"
+description = "Fluxara: Grid-Interactive AI Control Plane turning data centers into cyber-physical power plants"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Fluxara Architects", email = "architects@fluxara.ai"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "cvxpy",
+    "osqp",
+    "clarabel",
+]
+
+[project.urls]
+Homepage = "https://github.com/fluxara/fluxara"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["fluxara_core*"]
