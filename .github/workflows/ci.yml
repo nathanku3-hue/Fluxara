@@ -45,6 +45,14 @@ jobs:
       run: |
         python scripts/check_release_manifest.py
 
+    - name: Export audit bundle
+      run: |
+        python scripts/export_audit_bundle.py
+
+    - name: Verify audit bundle
+      run: |
+        python scripts/verify_audit_bundle.py
+
     - name: Run release artifact schema validations and deterministic replay (seed 42)
       run: |
         python scripts/replay_acceptance.py --seed 42

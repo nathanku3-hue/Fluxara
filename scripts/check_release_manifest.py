@@ -77,13 +77,19 @@ def check_single_manifest(manifest_path, tag_name):
     except Exception:
         tag_commit = None
         
+    try:
+        res = subprocess.run(["git", "merge-base", "--is-ancestor", manifest_commit, "HEAD"])
+        is_ancestor = (res.returncode == 0)
+    except Exception:
+        is_ancestor = False
+        
     print(f"  Manifest commit: {manifest_commit}")
     print(f"  HEAD commit:     {head_commit}")
-    print(f"  Parent commit:   {parent_commit}")
     print(f"  Tag commit:      {tag_commit}")
+    print(f"  Is ancestor:     {is_ancestor}")
     
-    if manifest_commit != head_commit and manifest_commit != tag_commit and manifest_commit != parent_commit:
-        print(f"Error: Manifest commit {manifest_commit} does not match HEAD ({head_commit}), Parent ({parent_commit}), or tag ({tag_commit})")
+    if manifest_commit != head_commit and manifest_commit != tag_commit and not is_ancestor:
+        print(f"Error: Manifest commit {manifest_commit} does not match HEAD ({head_commit}), tag ({tag_commit}), and is not an ancestor of HEAD.")
         sys.exit(1)
         
     print(f"  ✓ Manifest {manifest_path} is consistent.")

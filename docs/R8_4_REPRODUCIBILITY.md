@@ -60,9 +60,29 @@ Fluxara maintains a strict boundary between simulator models and actual physical
 ## 5. External Validation Path
 
 External auditors can run the verification checks on standard hardware:
+
+### Option A: Standard Repository Check
 1. Clone the repository at tag `v0.4.1-repro-alpha`.
-2. Install pinned dependencies.
-3. Run the replay script to verify schema compliance and mathematical convergence:
+2. Install pinned dependencies:
    ```bash
+   pip install -r requirements.lock.txt -c constraints.txt
+   ```
+3. Run the validation checks:
+   ```bash
+   python scripts/check_release_manifest.py
+   python scripts/replay_acceptance.py --seed 1337
+   ```
+
+### Option B: External Audit Bundle Verification (One-Command Replay)
+1. Download `artifacts/fluxara_external_audit_bundle_v0.4.1.zip` and `artifacts/fluxara_external_audit_bundle_v0.4.1.zip.sha256`.
+2. Verify the zip archive, extract it, and replay the acceptance benchmarks:
+   ```bash
+   # 1. Install dependencies
+   pip install -r requirements.lock.txt -c constraints.txt
+   
+   # 2. Verify archive checksum and content signatures
+   python scripts/verify_audit_bundle.py
+   
+   # 3. Replay acceptances under seed 1337
    python scripts/replay_acceptance.py --seed 1337
    ```
