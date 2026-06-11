@@ -30,7 +30,7 @@ python scripts/replay_acceptance.py --seed 42
 ```
 
 ### Script Actions
-1. **Schema Validation**: Validates `r8_acceptance_report.json` and `release_manifest_v0.4_research_alpha.json` against their official schemas in `schemas/`.
+1. **Schema Validation**: Validates `r8_acceptance_report.json`, `release_manifest_v0.4_research_alpha.json`, and `release_manifest_v0.4.1_repro_alpha.json` against their official schemas in `schemas/`.
 2. **CSV Dataset Validation**: Parses `r8_3_crossover_surface.csv` row-by-row and verifies schema alignment.
 3. **Acceptance Replay**: Reruns the Market bidding loop, Monte Carlo safety trials, and hardware Router Placer benchmark under the parameterized seed.
 
@@ -60,7 +60,7 @@ Fluxara maintains a strict boundary between simulator models and actual physical
 ## 5. External Validation Path
 
 External auditors can run the verification checks on standard hardware:
-1. Clone the repository at tag `v0.4-research-alpha`.
+1. Clone the repository at tag `v0.4.1-repro-alpha`.
 2. Install pinned dependencies.
 3. Run the replay script to verify schema compliance and mathematical convergence:
    ```bash

@@ -1,0 +1,22 @@
+{
+  "tag": "v0.4.1-repro-alpha",
+  "commit": "c71f0e4654ed9eda04219bcde27b311d914469c0",
+  "ci_run_id": "27328429867",
+  "acceptance_report_path": "artifacts/r8_acceptance_report.json",
+  "schema_paths": [
+    "schemas/r8_acceptance_report.schema.json",
+    "schemas/release_manifest.schema.json",
+    "schemas/r8_3_crossover_surface.schema.json"
+  ],
+  "replay_script_path": "scripts/replay_acceptance.py",
+  "lock_paths": [
+    "requirements.lock.txt",
+    "constraints.txt"
+  ],
+  "benchmark_artifact_paths": [
+    "artifacts/benchmarks.md",
+    "artifacts/r8_3_falsification_benchmarks.md",
+    "artifacts/r8_3_crossover_surface.csv"
+  ],
+  "disclaimer": "This release contains a reproducibility contract for R8-4, pinning package environments, enforcing JSON schemas for all output artifacts, and running a deterministic benchmark replay loop. Deployed hardware control loops remain strictly decoupled from the theoretical thermodynamic model."
+}
