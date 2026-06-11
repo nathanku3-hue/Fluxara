@@ -1,7 +1,7 @@
 {
   "tag": "v0.4-research-alpha",
-  "commit": "b66347530624c784fb64bbb19a5775849aca8a6c",
-  "ci_run_id": "27288041752",
+  "commit": "b0485f95bce7483763d09e174d82574b3e6a7eba",
+  "ci_run_id": "27327778945",
   "acceptance_report_path": "artifacts/r8_acceptance_report.json",
   "benchmark_artifact_paths": [
     "artifacts/benchmarks.md",
