@@ -47,7 +47,7 @@
   },
   "r8_3_reversible_research": {
     "status": "APPROVED",
-    "ci_commit": "012d88c66c363afb2cadde1647233d549c1a2f06",
+    "source_commit": "b66347530624c784fb64bbb19a5775849aca8a6c",
     "tests_passed": true,
     "landauer_limit_check": true,
     "caching_falsification_check": true,

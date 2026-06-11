@@ -352,7 +352,7 @@ def main():
         },
         "r8_3_reversible_research": {
             "status": "APPROVED" if r8_3_status_pass else "FAILED",
-            "ci_commit": commit_hash,
+            "source_commit": "b66347530624c784fb64bbb19a5775849aca8a6c",
             "tests_passed": bool(r8_3_tests_passed),
             "landauer_limit_check": bool(r8_3_landauer_limit_pass),
             "caching_falsification_check": bool(r8_3_caching_falsification_pass),

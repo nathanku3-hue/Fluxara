@@ -37,6 +37,7 @@ jobs:
     - name: Run acceptance report checks
       run: |
         python generate_acceptance_report.py
+        git diff --exit-code artifacts/r8_acceptance_report.json
 
     - name: Run demo module
       run: |

@@ -4,9 +4,14 @@
 
 [![Fluxara CI](https://github.com/nathanku3-hue/Fluxara/actions/workflows/ci.yml/badge.svg)](https://github.com/nathanku3-hue/Fluxara/actions/workflows/ci.yml)
 [![R8 Release Acceptance](https://img.shields.io/badge/R8_Release-APPROVED-green.svg)](artifacts/r8_acceptance_report.json)
-[![Version](https://img.shields.io/badge/Version-v0.3--alpha-blue.svg)](#)
+[![Version](https://img.shields.io/badge/Version-v0.3--alpha-blue.svg)](#) [![Research Version](https://img.shields.io/badge/Version-v0.4--research--alpha-orange.svg)](#)
 
 Fluxara is an advanced cyber-physical control plane designed to transform energy-intensive AI data centers into flexible, contractable grid assets. By co-optimizing power system signals, liquid cooling telemetry, silicon fatigue limitations, and distributed machine learning workloads in real time, Fluxara maximizes net risk-adjusted profit for hyper-scale infrastructure.
+
+> [!NOTE]
+> **Release Versions:**
+> - **v0.3-alpha**: R8-1/R8-2 simulator alpha (production bidding & aging-aware placement).
+> - **v0.4-research-alpha**: R8-3/R8-3.1 research alpha (isolated, theoretical reversible computing research & falsification checks).
 
 ---
 
