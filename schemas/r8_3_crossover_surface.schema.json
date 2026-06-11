@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CrossoverSurfaceDataset",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "temperature_c": { "type": "number" },
+      "chi_hardware": { "type": "number" },
+      "erased_bits_per_sec": { "type": "number" },
+      "mem_energy_j": { "type": "number" },
+      "cache_size_bits": { "type": "number" },
+      "q_min_w": { "type": "number" },
+      "q_actual_w": { "type": "number" },
+      "caching_energy_j": { "type": "number" },
+      "erasure_avoided_j": { "type": "number" },
+      "is_caching_efficient": { "type": "integer", "enum": [0, 1] }
+    },
+    "required": [
+      "temperature_c", "chi_hardware", "erased_bits_per_sec", "mem_energy_j",
+      "cache_size_bits", "q_min_w", "q_actual_w", "caching_energy_j",
+      "erasure_avoided_j", "is_caching_efficient"
+    ],
+    "additionalProperties": false
+  }
+}

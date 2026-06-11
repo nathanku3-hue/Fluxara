@@ -18,9 +18,9 @@ from fluxara_core.solver import FluxaraSolver, FluxaraSolverConfig
 from fluxara_core.hardware import HealthMap, OperatorSensitivity, AgingAwarePlacer
 from fluxara_core.research import LandauerCalculator
 
-def run_market_loop(use_stochastic: bool) -> tuple[float, float, float]:
-    env_cfg = FluxaraEnvConfig(n_market_steps=48, seed=42)
-    solver_cfg = FluxaraSolverConfig(horizon_windows=12, rng_seed=42, risk_surface_noise=0.03)
+def run_market_loop(use_stochastic: bool, seed: int = 42) -> tuple[float, float, float]:
+    env_cfg = FluxaraEnvConfig(n_market_steps=48, seed=seed)
+    solver_cfg = FluxaraSolverConfig(horizon_windows=12, rng_seed=seed, risk_surface_noise=0.03)
 
     env = FluxaraEnv(config=env_cfg)
     solver = FluxaraSolver(config=solver_cfg)
@@ -31,7 +31,7 @@ def run_market_loop(use_stochastic: bool) -> tuple[float, float, float]:
         power_noise_std=noise_std,
         checkpoint_noise_std=noise_std,
         price_noise_std=price_std,
-        seed=42
+        seed=seed
     ))
     adversary = AdversaryAgent()
 
@@ -82,14 +82,14 @@ def run_market_loop(use_stochastic: bool) -> tuple[float, float, float]:
 
     return exploitability, total_profit, delivery_success_rate
 
-def run_monte_carlo_safety(N_trials: int = 10000) -> tuple[float, float]:
-    env_cfg = FluxaraEnvConfig(n_market_steps=12, seed=42)
+def run_monte_carlo_safety(N_trials: int = 10000, seed: int = 42) -> tuple[float, float]:
+    env_cfg = FluxaraEnvConfig(n_market_steps=12, seed=seed)
     solver_cfg = FluxaraSolverConfig(
         horizon_windows=12,
         risk_surface_noise=0.03,
         delivery_confidence=0.999,
         shortfall_cvar_alpha=0.99,
-        rng_seed=42,
+        rng_seed=seed,
     )
 
     env = FluxaraEnv(config=env_cfg)
@@ -105,7 +105,7 @@ def run_monte_carlo_safety(N_trials: int = 10000) -> tuple[float, float]:
     shortfalls = []
     successes = 0
 
-    bid_policy = BidPolicy(BidPolicyConfig(power_noise_std=0.03, seed=123))
+    bid_policy = BidPolicy(BidPolicyConfig(power_noise_std=0.03, seed=seed + 81))
 
     for _ in range(N_trials):
         bid = bid_policy.generate_bid(det_action, obs)

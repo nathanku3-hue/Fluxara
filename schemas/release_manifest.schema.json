@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReleaseManifest",
+  "type": "object",
+  "properties": {
+    "tag": { "type": "string" },
+    "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "ci_run_id": { "type": "string" },
+    "acceptance_report_path": { "type": "string" },
+    "benchmark_artifact_paths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "research_only_disclaimer": { "type": "string" }
+  },
+  "required": ["tag", "commit", "ci_run_id", "acceptance_report_path", "benchmark_artifact_paths", "research_only_disclaimer"],
+  "additionalProperties": false
+}

@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "R8AcceptanceReport",
+  "type": "object",
+  "properties": {
+    "report_metadata": {
+      "type": "object",
+      "properties": {
+        "project": { "type": "string", "const": "Fluxara" },
+        "phase": { "type": "string" },
+        "status": { "type": "string", "enum": ["APPROVED", "FAILED"] }
+      },
+      "required": ["project", "phase", "status"],
+      "additionalProperties": false
+    },
+    "r8_1_market_security": {
+      "type": "object",
+      "properties": {
+        "deterministic_baseline": {
+          "type": "object",
+          "properties": {
+            "exploitability": { "type": "number" },
+            "expected_profit_usd": { "type": "number" },
+            "delivery_success_rate": { "type": "number" }
+          },
+          "required": ["exploitability", "expected_profit_usd", "delivery_success_rate"],
+          "additionalProperties": false
+        },
+        "randomized_policy": {
+          "type": "object",
+          "properties": {
+            "exploitability": { "type": "number" },
+            "expected_profit_usd": { "type": "number" },
+            "delivery_success_rate": { "type": "number" }
+          },
+          "required": ["exploitability", "expected_profit_usd", "delivery_success_rate"],
+          "additionalProperties": false
+        },
+        "comparison": {
+          "type": "object",
+          "properties": {
+            "exploitability_ratio": { "type": "number" },
+            "profit_ratio": { "type": "number" },
+            "exploitability_gate_passed": { "type": "boolean" },
+            "profit_gate_passed": { "type": "boolean" }
+          },
+          "required": ["exploitability_ratio", "profit_ratio", "exploitability_gate_passed", "profit_gate_passed"],
+          "additionalProperties": false
+        },
+        "delivery_safety_monte_carlo": {
+          "type": "object",
+          "properties": {
+            "trials": { "type": "integer" },
+            "delivery_success_rate": { "type": "number" },
+            "shortfall_cvar_99_mw": { "type": "number" },
+            "delivery_gate_passed": { "type": "boolean" },
+            "cvar_gate_passed": { "type": "boolean" }
+          },
+          "required": ["trials", "delivery_success_rate", "shortfall_cvar_99_mw", "delivery_gate_passed", "cvar_gate_passed"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["deterministic_baseline", "randomized_policy", "comparison", "delivery_safety_monte_carlo"],
+      "additionalProperties": false
+    },
+    "r8_2_aging_aware_routing": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "object",
+          "properties": {
+            "cost_only_sdc_weighted_risk": { "type": "number" },
+            "aging_aware_sdc_weighted_risk": { "type": "number" },
+            "risk_reduction_pct": { "type": "number" },
+            "latency_overhead_pct": { "type": "number" },
+            "high_sensitivity_on_degraded_cost_only": { "type": "integer" },
+            "high_sensitivity_on_degraded_aging_aware": { "type": "integer" },
+            "degraded_placements_reduction_pct": { "type": "number" }
+          },
+          "required": [
+            "cost_only_sdc_weighted_risk", "aging_aware_sdc_weighted_risk", "risk_reduction_pct",
+            "latency_overhead_pct", "high_sensitivity_on_degraded_cost_only",
+            "high_sensitivity_on_degraded_aging_aware", "degraded_placements_reduction_pct"
+          ],
+          "additionalProperties": false
+        },
+        "comparison": {
+          "type": "object",
+          "properties": {
+            "risk_gate_passed": { "type": "boolean" },
+            "latency_gate_passed": { "type": "boolean" },
+            "degraded_placements_gate_passed": { "type": "boolean" }
+          },
+          "required": ["risk_gate_passed", "latency_gate_passed", "degraded_placements_gate_passed"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["metrics", "comparison"],
+      "additionalProperties": false
+    },
+    "r8_3_reversible_research": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["APPROVED", "FAILED"] },
+        "source_commit": { "type": "string" },
+        "tests_passed": { "type": "boolean" },
+        "landauer_limit_check": { "type": "boolean" },
+        "caching_falsification_check": { "type": "boolean" },
+        "production_decoupling_check": { "type": "boolean" }
+      },
+      "required": ["status", "source_commit", "tests_passed", "landauer_limit_check", "caching_falsification_check", "production_decoupling_check"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["report_metadata", "r8_1_market_security", "r8_2_aging_aware_routing", "r8_3_reversible_research"],
+  "additionalProperties": false
+}
